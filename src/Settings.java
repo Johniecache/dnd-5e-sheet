@@ -7,20 +7,56 @@ import java.io.File;
  */
 public class Settings {
 
+    /**
+     * Contains the current instance character
+     */
     private Character curr_character = new Character("Default Character"); // default character
+    /**
+     * Contains the current file instance
+     */
     private File curr_file = null; // default file
 
+    /**
+     * Color of Success for notification class
+     */
     private final Color SUCCESS = Color.GREEN; // successful color for notification
+    /**
+     * Color of Error for notification class
+     */
     private final Color ERROR = Color.RED; // unsuccessful color for notification
+    /**
+     * Color of Warning for notification class
+     */
     private final Color WARNING = Color.ORANGE; // not all there color for notification
+    /**
+     * Color of Background for notification class
+     */
     private final Color BACKGROUND = Color.LIGHTGRAY; // background color for notification
 
+    /**
+     * Inventory rows for Inventory class
+     */
     private final int inventory_rows = 32; // hard coded number of row lines in inventory
+    /**
+     * Inventory columns for Inventory class
+     */
     private final int inventory_columns = 3; // hard coded number of column lines in inventory
 
+    /**
+     * Application icon
+     */
     private final Image app_icon = new Image(getClass().getResourceAsStream("/images/icon.png")); // used as application icon
+    /**
+     * Icon for success for notification class
+     */
     private final Image success_icon = new Image(getClass().getResourceAsStream("/images/success_icon.png")); // used as successful icon for notification
+    /**
+     * Icon for warning for notification class
+     */
     private final Image warning_icon = new Image(getClass().getResourceAsStream("/images/warning_icon.png")); // used as not all there icon for notification
+    /**
+     * Icon for error for notification class
+     */
     private final Image error_icon = new Image(getClass().getResourceAsStream("/images/error_icon.png")); // used as unsuccessful icon for notification
 
     /**
