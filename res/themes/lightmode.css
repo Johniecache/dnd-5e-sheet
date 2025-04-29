@@ -1,0 +1,13 @@
+/* Light Mode */
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #333;
+}
+
+.text-area {
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+    -fx-prompt-text-fill: #888;
+    -fx-border-color: #ccc;
+    -fx-border-width: 0 0 2px 0;
+}

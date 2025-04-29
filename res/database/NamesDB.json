@@ -1,0 +1,38 @@
+{
+  "Barbarian": [
+    "Thrain", "Korg", "Ulfgar", "Bruni", "Ragnar"
+  ],
+  "Bard": [
+    "Lyra", "Elowen", "Finnegan", "Dorian", "Maelis"
+  ],
+  "Cleric": [
+    "Elira", "Jorin", "Balthazar", "Miriel", "Torin"
+  ],
+  "Druid": [
+    "Rivon", "Thalia", "Mira", "Aelar", "Sylas"
+  ],
+  "Fighter": [
+    "Valen", "Korath", "Lynna", "Garrick", "Borin"
+  ],
+  "Monk": [
+    "Zhen", "Kai", "Lian", "Feng", "Xian"
+  ],
+  "Paladin": [
+    "Aegis", "Seraphine", "Garridan", "Elyse", "Zariel"
+  ],
+  "Ranger": [
+    "Kara", "Elowen", "Thorn", "Caden", "Rowan"
+  ],
+  "Rogue": [
+    "Lira", "Finn", "Dante", "Violetta", "Galen"
+  ],
+  "Sorcerer": [
+    "Azrael", "Calista", "Thorne", "Zephyr", "Darius"
+  ],
+  "Warlock": [
+    "Nyx", "Lucius", "Vespera", "Astra", "Orion"
+  ],
+  "Wizard": [
+    "Selene", "Malvin", "Rin", "Talia", "Ilan"
+  ]
+}

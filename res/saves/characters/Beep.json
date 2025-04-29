@@ -1,0 +1,258 @@
+{
+  "currency": {
+    "gold": 50,
+    "platinum": 0,
+    "copper": 0,
+    "silver": 0
+  },
+  "equipped_equipment": {
+    "slot 18": "",
+    "slot 17": "",
+    "slot 19": "",
+    "slot 10": "",
+    "slot 21": "",
+    "slot 20": "",
+    "slot 12": "",
+    "slot 11": "",
+    "slot 1": "Wakizashi",
+    "slot 14": "",
+    "slot 13": "",
+    "slot 16": "",
+    "slot 15": "1d10 + dex(3)",
+    "slot 5": "",
+    "slot 4": "",
+    "slot 3": "",
+    "slot 2": "",
+    "slot 9": "",
+    "slot 8": "1d20 + dex(3) + prof(2)",
+    "slot 7": "",
+    "slot 6": ""
+  },
+  "headers": {
+    "race": "Thri-kreen",
+    "level": "1",
+    "background": "Outcast",
+    "name": "Beep",
+    "alignment": "CN",
+    "class": "Monk",
+    "deity": "Self",
+    "player": "Caleb"
+  },
+  "inventory": [
+    {
+      "name": "Flask of Oil",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Empty Flask",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Rations (22 days)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Traveler's Cloths",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Chalk (x1)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Blanket",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Bedroll (x2)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Robot Limb",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Deck of Cards",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Commoners Cloths",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Mess Kit",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Tinderbox",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Torches (x10)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Water Skin",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Hemp Rope (50ft)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Darts (x10)",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Bag of Holding",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "Health Potion (x2)",
+      "attribute": "2d4 + 4 hp regen",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    },
+    {
+      "name": "",
+      "attribute": "",
+      "worth": ""
+    }
+  ],
+  "misc": {
+    "passives": "Unknown"
+  },
+  "prof_slots": {
+    "slot 5": "",
+    "slot 4": "",
+    "slot 3": "Deck of Cards",
+    "slot 2": "Shortswords",
+    "slot 9": "",
+    "slot 8": "",
+    "slot 7": "",
+    "slot 6": "",
+    "slot 10": "",
+    "slot 12": "",
+    "slot 11": "",
+    "slot 1": "Simple Weaons"
+  },
+  "scores": {
+    "str": 8,
+    "wis": 16,
+    "con": 15,
+    "dex": 17,
+    "char": 10,
+    "int": 7
+  },
+  "skills": {
+    "nature": 0,
+    "sleight_of_hand": 0,
+    "survival": 5,
+    "medicine": 0,
+    "history": 0,
+    "acrobatics": 5,
+    "religion": 0,
+    "perception": 5,
+    "persuasion": 0,
+    "animal_handling": 0,
+    "insight": 0,
+    "performance": 0,
+    "deception": 0,
+    "stealth": 0,
+    "arcana": 0,
+    "investigation": 0,
+    "athletics": 0,
+    "intimidation": 2
+  },
+  "stats": {
+    "maxHP": 16,
+    "AC": 10,
+    "initiative": 0,
+    "HPDie": 8,
+    "HP": 16,
+    "tempHP": 0,
+    "move_speed": 30,
+    "passive_perception": 15
+  }
+}
