@@ -129,7 +129,7 @@ public class Inventory extends Stage {
 
     /**
      * Checks whether or not the inventory is showing currently
-     * @return
+     * @return boolean isShowing() method
      */
     public boolean isShowingInventory() {
         return isShowing(); // window method that checks if window is currently showing on screen
