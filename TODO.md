@@ -1,8 +1,6 @@
 # TODO
 
 ### Critical - Tasks
-* Notifications:
-  * Dynamically position notifications (moves with main window)
 * Spell Page:
   * Spell level
   * Prepared Slot
