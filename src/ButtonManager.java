@@ -218,81 +218,98 @@ public class ButtonManager {
      */
     public void userSettings() {
         Stage s_stage = new Stage(); // new window
-        s_stage.initModality(Modality.APPLICATION_MODAL); //
-        s_stage.setTitle("Settings");
+        s_stage.initModality(Modality.APPLICATION_MODAL); // make user interact with window before moving
+        s_stage.setTitle("Settings"); // setting title
 
-        Label save_label = new Label("Save Location:");
+        Label save_label = new Label("Save Location:"); // create new label
 
-        TextField save_textfield = new TextField(user_settings.getSaveDirectory().getAbsolutePath());
-        save_textfield.setPrefWidth(350);
+        TextField save_textfield = new TextField(user_settings.getSaveDirectory().getAbsolutePath()); // pre-filled with current save directory
+        save_textfield.setPrefWidth(350); // width of text field
 
-        Button pick_file_button = new Button("\uD83D\uDCC2");
-        pick_file_button.setOnAction(e -> {
-            DirectoryChooser directory = new DirectoryChooser();
-            directory.setTitle("Select Save Directory");
-            File new_directory = directory.showDialog(s_stage);
-            if (new_directory != null) {
-                user_settings.setSaveDirectory(new_directory);
-                save_textfield.setText(new_directory.getAbsolutePath());
+        Button pick_file_button = new Button("\uD83D\uDCC2"); // new button with folder icon as text
+        pick_file_button.setOnAction(e -> { // event for when button is pressed
+            DirectoryChooser directory = new DirectoryChooser(); // create new directory
+            directory.setTitle("Select Save Directory"); // set title
+            File new_directory = directory.showDialog(s_stage); // wait for user to pick a directory
+            if (new_directory != null) { // check to make sure a valid directory
+                user_settings.setSaveDirectory(new_directory); // set the user directory in user settings to this new directory
+                save_textfield.setText(new_directory.getAbsolutePath()); // get the absolute path for this directory and save it
             }
         });
 
-        save_textfield.setOnAction(e -> {
-            File new_directory = new File(save_textfield.getText());
-            if (new_directory.exists() && new_directory.isDirectory()) {
-                user_settings.setSaveDirectory(new_directory);
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid directory!", ButtonType.OK);
-                alert.showAndWait();
-                save_textfield.setText(user_settings.getSaveDirectory().getAbsolutePath());
+        save_textfield.setOnAction(e -> { // new action for the textfield
+            File new_directory = new File(save_textfield.getText()); // new directory as the text inside the textfield
+            if (new_directory.exists() && new_directory.isDirectory()) { // validate the path exists
+                user_settings.setSaveDirectory(new_directory); // if valid then set the save directory as the new directory
+            } else { // otherwise
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid directory!", ButtonType.OK); // new alert notification
+                alert.showAndWait(); // wait for user input
+                save_textfield.setText(user_settings.getSaveDirectory().getAbsolutePath()); // save text field
             }
         });
 
-        ToggleButton toggle_dm = new ToggleButton("🌙 Dark Mode");
-        toggle_dm.setSelected(dark_mode_check);
-        updateTheme(toggle_dm.isSelected());
+        ToggleButton toggle_dm = new ToggleButton("🌙 Dark Mode"); // set a new button with dark mode and emoji
+        toggle_dm.setSelected(dark_mode_check); // sets state based on whether dark mode is active
+        updateTheme(toggle_dm.isSelected()); // applies dark mode theme immediately
 
-        toggle_dm.setOnAction(e -> {
-            dark_mode_check = toggle_dm.isSelected();
-            updateTheme(dark_mode_check);
+        toggle_dm.setOnAction(e -> { // on button press action
+            dark_mode_check = toggle_dm.isSelected(); // toggle the dark mode if selected
+            updateTheme(dark_mode_check); // update the theme
         });
 
-        HBox s_row = new HBox(10, save_label, save_textfield, pick_file_button);
-        VBox layout = new VBox(15, s_row, toggle_dm);
-        layout.setStyle("-fx-padding: 15px;");
+        HBox s_row = new HBox(10, save_label, save_textfield, pick_file_button); // horizontal layout containing buttons, etc
+        VBox layout = new VBox(15, s_row, toggle_dm); // new vertical layout with toggles
+        layout.setStyle("-fx-padding: 15px;"); // padding
 
-        Scene scene = new Scene(layout, 550, 150);
-        s_stage.setScene(scene);
-        s_stage.showAndWait();
+        Scene scene = new Scene(layout, 550, 150); // window size
+        s_stage.setScene(scene); // set window
+        s_stage.showAndWait(); // wait for user input
     }
 
+    /**
+     * Handles the quitting of the program
+     */
     public void quitProgram() {
-        System.out.println("Quitting Program...");
+        System.out.println("Quitting Program..."); // output to console whats happening
 
-        System.exit(0);
+        System.exit(0); // exit program with status of 0
     }
 
+    /**
+     * Handles the randomization of the characters stats by sending it over to the randomizer class
+     * @throws JSONException JSONException
+     */
     public void randomizeCharacter() throws JSONException {
-        System.out.println("Randomizing Character...");
+        System.out.println("Randomizing Character..."); // show in console what is happening
 
-        Character curr_char = settings.getCurrCharacter();
-        if (curr_char != null) {
-            randomizer.applyRandomization(settings, controller);
-            controller.loadToSheet(curr_char);
-        } else {
-            System.out.println("No current character loaded to randomize.");
+        Character curr_char = settings.getCurrCharacter(); // set instance variable as current character
+        if (curr_char != null) { // check if character is not null
+            randomizer.applyRandomization(settings, controller); // send over to randomizer class to handle
+            controller.loadToSheet(curr_char); // send new character over to controller
+        } else { // otherwise
+            System.out.println("No current character loaded to randomize."); // tell user there is no current character to load
+            Notification.showNotification(controller.getScene().getWindow(), // show notification to user
+                    "Cannot randomize null character",
+                    "Character is null and cannot be randomized, select a character.",
+                    settings.getErrorColor(),
+                    settings.getBackgroundColor(),
+                    0.9,
+                    Notification.NotificationType.ERROR);
         }
     }
 
-
-    private void updateTheme(boolean darkMode) {
-        Scene scene = controller.getScene();
-        if (scene != null) {
-            scene.getStylesheets().clear();
-            if (darkMode) {
-                scene.getStylesheets().add(getClass().getResource("/themes/darkmode.css").toExternalForm());
-            } else {
-                scene.getStylesheets().add(getClass().getResource("/themes/lightmode.css").toExternalForm());
+    /**
+     * Update the theme based on passed value
+     * @param dark_mode on/off
+     */
+    private void updateTheme(boolean dark_mode) {
+        Scene scene = controller.getScene(); // get the controller window
+        if (scene != null) { // check if scene is not null
+            scene.getStylesheets().clear(); // clear current style sheet
+            if (dark_mode) { // if its dark mode
+                scene.getStylesheets().add(getClass().getResource("/themes/darkmode.css").toExternalForm()); // set to dark mode
+            } else { // otherwise light mode
+                scene.getStylesheets().add(getClass().getResource("/themes/lightmode.css").toExternalForm()); // set to light mode
             }
         }
     }
