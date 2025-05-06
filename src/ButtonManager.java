@@ -57,7 +57,7 @@ public class ButtonManager {
         this.settings = settings; // set passed as instance settings
         this.controller = controller; // set passed as instance controller
         this.inventory = inventory; // set passed as instance inventory
-        character_manager = new CharacterManager(user_settings, this); // set character manager as a new manager passing user_settings and button manager instance
+        character_manager = new CharacterManager(); // set character manager as a new manager passing user_settings and button manager instance
     }
 
     /**
