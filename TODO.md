@@ -11,6 +11,7 @@
     * Action (A, BA, R, etc)
     * Range (touch, X ft, etc)
     * Attributes
+  * Attach window to main window
 * Passives text area changed for dynamic selection (Actions, Bonus Actions, Reactions, Passives)
 
 ### High Priority - Improvements
