@@ -42,7 +42,7 @@ public class Controller {
      * Proficiency components
      */
     @FXML private TextField prof_s1_tf, prof_s2_tf, prof_s3_tf, prof_s4_tf, prof_s5_tf, prof_s6_tf,
-                                prof_s7_tf, prof_s8_tf, prof_s9_tf, prof_s10_tf, prof_s11_tf, prof_s12_tf;
+            prof_s7_tf, prof_s8_tf, prof_s9_tf, prof_s10_tf, prof_s11_tf, prof_s12_tf;
     /**
      * Array of proficiency slots
      */
@@ -51,8 +51,8 @@ public class Controller {
      * Skill components
      */
     @FXML private TextField athletics_tf, acrobatics_tf, sleightofhand_tf, stealth_tf, arcana_tf, history_tf, investigation_tf,
-                            nature_tf, religion_tf, animal_tf, insight_tf, medicine_tf, perception_tf, survival_tf, deception_tf,
-                            intimidation_tf, performance_tf, persuasion_tf;
+            nature_tf, religion_tf, animal_tf, insight_tf, medicine_tf, perception_tf, survival_tf, deception_tf,
+            intimidation_tf, performance_tf, persuasion_tf;
     /**
      * Array of skills
      */
@@ -61,7 +61,7 @@ public class Controller {
      * Modifier components
      */
     @FXML private TextField str_mod_tf, str_save_tf, dex_mod_tf, dex_save_tf, con_mod_tf, con_save_tf, int_mod_tf,
-                            int_save_tf, wis_mod_tf, wis_save_tf, char_mod_tf, char_save_tf;
+            int_save_tf, wis_mod_tf, wis_save_tf, char_mod_tf, char_save_tf;
     /**
      * Array of modifiers and saves
      */
@@ -70,8 +70,8 @@ public class Controller {
      * Equipped Equipment components
      */
     @FXML private TextField ee_name_s1, ee_name_s2, ee_name_s3, ee_name_s4, ee_name_s5, ee_name_s6, ee_name_s7,
-                            ee_attack_s1, ee_attack_s2, ee_attack_s3, ee_attack_s4, ee_attack_s5, ee_attack_s6, ee_attack_s7,
-                            ee_damage_s1, ee_damage_s2, ee_damage_s3, ee_damage_s4, ee_damage_s5, ee_damage_s6, ee_damage_s7;
+            ee_attack_s1, ee_attack_s2, ee_attack_s3, ee_attack_s4, ee_attack_s5, ee_attack_s6, ee_attack_s7,
+            ee_damage_s1, ee_damage_s2, ee_damage_s3, ee_damage_s4, ee_damage_s5, ee_damage_s6, ee_damage_s7;
     /**
      * Array of equipped equipment
      */
@@ -96,7 +96,7 @@ public class Controller {
     /**
      * Buttons
      */
-    @FXML private Button save_as_button, save_button, load_button, new_button, settings_button, quit_button, randomize_button, inventory_button;
+    @FXML private Button save_as_button, save_button, load_button, new_button, settings_button, quit_button, randomize_button, inventory_button, spells_button;
     /**
      * Window
      */
@@ -115,9 +115,17 @@ public class Controller {
      */
     private Inventory inventory;
     /**
+     * Spell book initialization
+     */
+    private Spells spells;
+    /**
      * Check if inventory is being shown, default false
      */
     private boolean is_inventory_showing = false;
+    /**
+     * Check if spell book is showing, default false
+     */
+    private boolean is_spells_showing = false;
 
     /**
      * initializes the character sheet
@@ -125,7 +133,8 @@ public class Controller {
     public void initialize(){
         settings = new Settings(); // instantiate the settings class
         inventory = new Inventory(this); // instantiates the inventory class
-        button = new ButtonManager(settings, this, inventory); // instantiates the buttonmanager class
+        spells = new Spells(this); // instantiates the spells class
+        button = new ButtonManager(settings, this, inventory, spells); // instantiates the buttonmanager class
 
         save_as_button.setOnAction(event -> button.saveAsCharacter(inventory)); // create save button and action
         save_button.setOnAction(event -> {button.saveCharacter(inventory);}); // create save button and action
@@ -157,21 +166,42 @@ public class Controller {
             }
         });
 
+        spells_button.setOnAction(event -> {
+            Stage main_stage = (Stage) scene.getWindow();
+            if (spells == null) {
+                spells = new Spells(this);
+            }
+
+            if (spells.isShowingSpells()) {
+                spells.hideSpells();
+                is_spells_showing = false;
+            } else {
+                spells.showSpells();
+                spells.setX(main_stage.getX() - spells.getWidth());
+                spells.setY(main_stage.getY());
+                is_spells_showing = true;
+                if (!spells.checkListenersAttached()) {
+                    spells.addPosListeners();
+                }
+            }
+        });
+
+
         quit_button.setOnAction(event -> button.quitProgram()); // initialize the quit button
 
         headers = new TextField[]{name_tf, player_tf, class_tf, race_tf, background_tf, deity_tf, level_tf, align_tf}; // create the header array
         stats = new TextField[]{ac_tf, hp_tf, in_tf, maxhp_tf, hpdie_tf, temphp_tf, movespeed_tf, passperception_tf}; // create stats array
         scores = new TextField[]{str_tf, dex_tf, con_tf, int_tf, wis_tf, char_tf}; // create score array
         prof_slots = new TextField[]{prof_s1_tf, prof_s2_tf, prof_s3_tf, prof_s4_tf, prof_s5_tf, prof_s6_tf, prof_s7_tf,
-                                        prof_s8_tf, prof_s9_tf, prof_s10_tf, prof_s11_tf, prof_s12_tf}; // create prof_slots array
+                prof_s8_tf, prof_s9_tf, prof_s10_tf, prof_s11_tf, prof_s12_tf}; // create prof_slots array
         skills = new TextField[]{athletics_tf, acrobatics_tf, sleightofhand_tf, stealth_tf, arcana_tf, history_tf, investigation_tf,
-                                    nature_tf, religion_tf, animal_tf, insight_tf, medicine_tf, perception_tf, survival_tf, deception_tf,
-                                    intimidation_tf, performance_tf, persuasion_tf}; // create skills array
+                nature_tf, religion_tf, animal_tf, insight_tf, medicine_tf, perception_tf, survival_tf, deception_tf,
+                intimidation_tf, performance_tf, persuasion_tf}; // create skills array
         mods = new TextField[]{str_mod_tf, dex_mod_tf, con_mod_tf, int_mod_tf, wis_mod_tf, char_mod_tf}; // create mods array
         saves = new TextField[]{str_save_tf, dex_save_tf, con_save_tf, int_save_tf, wis_save_tf, char_save_tf}; // create saves array
         equipped_equipment = new TextField[]{ee_name_s1, ee_name_s2, ee_name_s3, ee_name_s4, ee_name_s5, ee_name_s6, ee_name_s7,
-                                        ee_attack_s1, ee_attack_s2, ee_attack_s3, ee_attack_s4, ee_attack_s5, ee_attack_s6, ee_attack_s7,
-                                        ee_damage_s1, ee_damage_s2, ee_damage_s3, ee_damage_s4, ee_damage_s5, ee_damage_s6, ee_damage_s7}; // create equipped equipment array
+                ee_attack_s1, ee_attack_s2, ee_attack_s3, ee_attack_s4, ee_attack_s5, ee_attack_s6, ee_attack_s7,
+                ee_damage_s1, ee_damage_s2, ee_damage_s3, ee_damage_s4, ee_damage_s5, ee_damage_s6, ee_damage_s7}; // create equipped equipment array
         currencies = new TextField[]{cp_tf, sp_tf, gp_tf, pp_tf};
         misc = new TextArea[]{passives_tf}; // create misc array
 

@@ -39,6 +39,10 @@ public class ButtonManager {
      */
     private final Inventory inventory;
     /**
+     * Initialize spells
+     */
+    private final Spells spells;
+    /**
      * Instantiate the randomizer
      */
     private final Randomizer randomizer = new Randomizer();
@@ -53,10 +57,11 @@ public class ButtonManager {
      * @param controller controller class
      * @param inventory inventory class
      */
-    public ButtonManager(Settings settings, Controller controller, Inventory inventory){
+    public ButtonManager(Settings settings, Controller controller, Inventory inventory, Spells spells){
         this.settings = settings; // set passed as instance settings
         this.controller = controller; // set passed as instance controller
         this.inventory = inventory; // set passed as instance inventory
+        this.spells = spells; // set passed as instance spells
         character_manager = new CharacterManager(); // set character manager as a new manager passing user_settings and button manager instance
     }
 
@@ -86,7 +91,7 @@ public class ButtonManager {
             String file_name = name.replaceAll("[^a-zA-Z0-9_-]", "_"); // sanitize the file name
             File save_file = new File(user_settings.getSaveDirectory(), file_name + ".json"); // set the save file in the directory with the new file name adding a .json
 
-            file_manager.saveToFile(save_file, settings.getCurrCharacter(), controller.getScene().getWindow(), inventory); // pass new save file to file manager along with other necessary parameters
+            file_manager.saveToFile(save_file, settings.getCurrCharacter(), controller.getScene().getWindow(), inventory, spells); // pass new save file to file manager along with other necessary parameters
             settings.setCurrFile(save_file); // track the currently loaded file
         });
     }
@@ -99,7 +104,7 @@ public class ButtonManager {
         System.out.println("Saving Character..."); // show in console whats happening
 
         if(settings.getCurrFile() != null){ // if there is a current file then...
-            file_manager.saveToFile(settings.getCurrFile(), settings.getCurrCharacter(), controller.getScene().getWindow(), inventory); // send parameters to file_manager
+            file_manager.saveToFile(settings.getCurrFile(), settings.getCurrCharacter(), controller.getScene().getWindow(), inventory, spells); // send parameters to file_manager
         }
         else{saveAsCharacter(inventory);} // otherwise send to save as for new .json file save
     }
@@ -152,7 +157,7 @@ public class ButtonManager {
                 int index_selected = list_view.getSelectionModel().getSelectedIndex(); // set the index selected as the double tapped file
                 if (index_selected >= 0) { // check if its a valid location in the list view
                     File file_selected = r_files.get(index_selected); // create a new file with the name of the selected name
-                    Character loaded_char = file_manager.loadFromFile(file_selected, controller.getScene().getWindow(), inventory); // set variable as passed parameters from selected index
+                    Character loaded_char = file_manager.loadFromFile(file_selected, controller.getScene().getWindow(), inventory, spells); // set variable as passed parameters from selected index
 
                     if (loaded_char != null) { // check if the character and make sure it isn't empty
                         settings.setCurrCharacter(loaded_char); // pass parameters to settings to set the current character
