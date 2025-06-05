@@ -134,4 +134,15 @@ public class Inventory extends Stage {
     public boolean isShowingInventory() {
         return isShowing(); // window method that checks if window is currently showing on screen
     }
+
+    /**
+     * Clears the inventory, usually when a new character is created
+     */
+    public void clearInventory(){
+        for (int i = 0; i < ROWS; i++) { // loop through each row
+            for (int j = 0; j < COLS; j++) { // loop through each column
+                fields[i][j].setText(""); // set the text of the current TextField to an empty string
+            }
+        }
+    }
 }

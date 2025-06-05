@@ -40,7 +40,15 @@ public class Settings {
     /**
      * Inventory columns for Inventory class
      */
-    private final int inventory_columns = 3; // hard coded number of column lines in inventory
+    private final int inventory_columns = 4; // hard coded number of column lines in inventory
+    /**
+     * Spells rows for Spells class
+     */
+    private final int spell_rows = 25;
+    /**
+     * Spells columns for Spells class
+     */
+    private final int spell_column = 4;
 
     /**
      * Application icon
@@ -140,6 +148,17 @@ public class Settings {
      */
     public int getInventoryColumns(){return this.inventory_columns;}
 
+    /**
+     * Gets the total spells rows
+     * @return spell_rows
+     */
+    public int getSpellRows(){return this.spell_rows;}
+
+    /**
+     * Gets the total spells columns
+     * @return spell_columns
+     */
+    public int getSpellColumns(){return this.spell_column;}
 
     /**
      * Sets the instance current character object

@@ -23,7 +23,7 @@ public class FileManager {
      * @param window main window
      * @param inventory inventory window
      */
-    public void saveToFile(File file, Character character, Window window, Inventory inventory) {
+    public void saveToFile(File file, Character character, Window window, Inventory inventory, Spells spells, Information information) {
         try (FileWriter writer = new FileWriter(file)) { // handle errors with grace
 
             JSONObject headers = new JSONObject(); // create new json object for headers
@@ -107,6 +107,37 @@ public class FileManager {
             String[] misc_vals = character.getMisc(); // create new array to hold values
             misc.put("passives", misc_vals[0]);
 
+            JSONArray spell_items = new JSONArray();
+            String[][] spell_data = spells.getSpellData();
+            for (String[] row : spell_data) {
+                JSONObject spell = new JSONObject();
+                spell.put("name", row[0]);
+                spell.put("level", row[1]);
+                spell.put("slot", row[2]);
+                spell.put("description", row[3]);
+                spell_items.put(spell);
+            }
+
+            JSONObject spell_top = new JSONObject();
+            String[] top_data = spells.getTopData();
+            spell_top.put("ability", top_data[0]);
+            spell_top.put("dc", top_data[1]);
+            spell_top.put("attack", top_data[2]);
+
+            JSONObject character_info = new JSONObject();
+            String[] info_values = information.getInformationData();
+            character_info.put("height", info_values[0]);
+            character_info.put("weight", info_values[1]);
+            character_info.put("gender", info_values[2]);
+            character_info.put("age", info_values[3]);
+            character_info.put("hair_color", info_values[4]);
+            character_info.put("eye_color", info_values[5]);
+            character_info.put("skin_color", info_values[6]);
+            character_info.put("languages", info_values[7]);
+
+            String image_path = information.getCharacterPicturePath();
+            character_info.put("picture_path", image_path != null ? image_path : "");
+
 
             JSONObject json = new JSONObject(); // main json object to hold each array
             json.put("headers", headers);
@@ -118,6 +149,9 @@ public class FileManager {
             json.put("inventory", inventory_items);
             json.put("currency", currencies);
             json.put("misc", misc);
+            json.put("spells", spell_items);
+            json.put("spell_top", spell_top);
+            json.put("information", character_info);
 
             writer.write(json.toString()); // write the json objects to the json file
             System.out.println("Character saved successfully: " + file.getAbsolutePath()); // show in console it was successful
@@ -135,7 +169,7 @@ public class FileManager {
      * @param inventory current characters inventory
      * @return character data
      */
-    public Character loadFromFile(File file, Window window, Inventory inventory) {
+    public Character loadFromFile(File file, Window window, Inventory inventory, Spells spells, Information information) {
         try (Scanner scanner = new Scanner(new FileReader(file))) { // handle errors with grace
             StringBuilder json_builder = new StringBuilder(); // new string builder of the json file
             while (scanner.hasNextLine()) { // while scanner has more lines
@@ -293,6 +327,61 @@ public class FileManager {
                 missing_fields.append("misc, "); // add it to missing fields
                 missing_data = true; // set flag to true
                 character.setMisc(new String[]{"Unknown"}); // set default to unknown
+            }
+
+            if (json.has("spells")) {
+                JSONArray spells_items = json.getJSONArray("spells"); // Get "spells" JSONArray
+                String[][] spells_data = new String[settings.getSpellRows()][settings.getSpellColumns()];
+                for (int i = 0; i < Math.min(settings.getSpellRows(), spells_items.length()); i++) {
+                    JSONObject spell = spells_items.getJSONObject(i);
+                    spells_data[i][0] = spell.optString("name", "");
+                    spells_data[i][1] = spell.optString("level", "");
+                    spells_data[i][2] = spell.optString("slot", "");
+                    spells_data[i][3] = spell.optString("description", "");
+                }
+                spells.setSpellData(spells_data); // Set spell data on the 'spells' object
+            } else {
+                missing_fields.append("spells, ");
+                missing_data = true;
+                spells.setSpellData(new String[settings.getSpellRows()][settings.getSpellColumns()]); // Set defaults
+            }
+
+            if (json.has("spell_top")) { // check json file for spell_top
+                JSONObject spells_top = json.getJSONObject("spell_top"); // new json object to hold spell_top values
+                spells.setTopData(new String[]{ // call spells and set the top data
+                        spells_top.optString("ability", "Unknown"),
+                        spells_top.optString("dc", "Unknown"),
+                        spells_top.optString("attack", "Unknown"),
+                });
+            } else { // if there is no spell_top field
+                missing_fields.append("spell_top, "); // add spell_top to missing fields
+                missing_data = true; // set flag to true
+                spells.setTopData(new String[]{"Unknown", "Unknown", "Unknown"}); // set all to unknown
+            }
+
+            if (json.has("information")) {
+                JSONObject character_info = json.getJSONObject("information");
+                String[] loaded_info = new String[8];
+                loaded_info[0] = character_info.optString("height", "");
+                loaded_info[1] = character_info.optString("weight", "");
+                loaded_info[2] = character_info.optString("gender", "");
+                loaded_info[3] = character_info.optString("age", "");
+                loaded_info[4] = character_info.optString("hair_color", "");
+                loaded_info[5] = character_info.optString("eye_color", "");
+                loaded_info[6] = character_info.optString("skin_color", "");
+                loaded_info[7] = character_info.optString("languages", ""); // Languages are comma-separated
+
+                information.setInformationData(loaded_info);
+
+                String image_path = character_info.optString("picture_path", "");
+                information.setCharacterPicture(image_path);
+
+            } else {
+                missing_fields.append("information, ");
+                missing_data = true;
+                // Set default values for information
+                information.setInformationData(new String[]{"", "", "", "", "", "", "", ""});
+                information.setCharacterPicture(null); // Clear picture if no data
             }
 
             if(missing_data){ // if the missing data has been flagged
