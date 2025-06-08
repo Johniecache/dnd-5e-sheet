@@ -1,11 +1,12 @@
 # TODO
 
 ### Critical - Tasks
+* Checkbox for Score saves
+* Checkbox for toggling bind of extra windows
 * Spell Page:
   * Spell level
-  * Prepared Slot
-  * Expended Slots
-  * Total Slots
+  * Spell slot
+  * Expended 
   * Spell text field:
     * Name
     * Action (A, BA, R, etc)
@@ -16,16 +17,7 @@
 
 ### High Priority - Improvements
 * Check for unsaved areas before exiting
-* Character Details:
-  * Languages
-  * Hair Color
-  * Sking Color
-  * Eye Color
-  * Weight
-  * Height
-  * Picture of Character
 * User Settings:
-  * Character picture save location (simular to character save directory)
   * Checkbox for: full, half, non (default) caster
 
 ### Moderate Priority - Enchancements
